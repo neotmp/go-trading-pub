@@ -7,29 +7,30 @@ import (
 	"github.com/neotmp/go-trading/broker"
 )
 
-func TestCalcAccountProfit(t *testing.T) {
+func TestCalcAccountFreeMargin(t *testing.T) {
 
 	var pos = []broker.Position{
-		{Profit: -0.29004,
+		{Margin: 5.10595,
 			Pair: "EURUSD"},
 
-		{Profit: 12.17989,
+		{Margin: 5.14351,
 			Pair: "EURGBP"},
-		{Profit: 0.00000,
+
+		{Margin: 15.43053,
 			Pair: "EURGBP"},
 	}
 
-	var got float32 = 0.0
-	var expected float32 = 11.88985
+	var got float32 = 112.18
+	var expected float32 = 86.500015
 
 	for _, v := range pos {
 
-		got += v.Profit
+		got -= v.Margin
 
 	}
 
 	if fmt.Sprintf("%f", got) != fmt.Sprintf("%f", expected) {
-		t.Errorf("wrong profit in account, given %f: expected%f ", got, expected)
+		t.Errorf("wrong free margin in account, given %f: expected %f: ", got, expected)
 	}
 
 }

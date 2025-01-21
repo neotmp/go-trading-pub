@@ -3,10 +3,9 @@ package broker
 import "fmt"
 
 // CalculateEquity returns pointer to Broker
-// Equity = Balance + Profit
+// If no open positions, E = B
+// otherwise, E = Sum of Open positions(Profit1... + Profitn)
 func (b *Broker) CalculateAccountEquity(a *Account) (*Broker, error) {
-
-	fmt.Println(a, "ACC")
 
 	// index of account
 	accInd, err := b.FindAccountIndex(a.Id)
@@ -23,7 +22,7 @@ func (b *Broker) CalculateAccountEquity(a *Account) (*Broker, error) {
 	}
 
 	// if no open positions equity = balance
-	pos, err := b.FindPositions(accInd)
+	pos, err := b.FindPositions(a.Id)
 	if err != nil {
 		return b, err
 	}
@@ -33,9 +32,19 @@ func (b *Broker) CalculateAccountEquity(a *Account) (*Broker, error) {
 		return b, nil
 	}
 
-	eq := b.Accounts[accInd].Balance + b.Accounts[accInd].Profit
-	b.Accounts[accInd].Equity = eq
+	var equity float32
 
-	return b, nil
+	for _, v := range pos {
+		equity += v.Profit
+	}
+
+	b.Accounts[accInd].Equity = b.Accounts[accInd].Balance + equity
+
+	updated, err := b.dbUpdateAccount(a)
+	if err != nil {
+		return b, err
+	}
+
+	return updated, nil
 
 }

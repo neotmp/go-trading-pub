@@ -3,12 +3,12 @@ package broker
 // FindPositions returns slice of pointers to Position struct
 // param is account id
 // Positions are matched against AccountId and BrokerId
-func (b *Broker) FindPositions(id uint16) ([]*Position, error) {
+func (b *Broker) FindPositions(accId uint16) ([]*Position, error) {
 
 	accs := b.Accounts
 	var positions []*Position
 
-	account, err := b.FindAccount(accs, id)
+	account, err := b.FindAccount(accs, accId)
 	if err != nil {
 		return positions, err
 	}

@@ -49,7 +49,7 @@ func main() {
 	// 	fmt.Println(err)
 	// }
 
-	fmt.Println(acc, "accs")
+	fmt.Println(acc.Accounts[0].Equity, "accs Equity")
 
 	//fmt.Println(acc.Accounts[0].Equity, "Equity main")
 

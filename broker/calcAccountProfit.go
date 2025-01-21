@@ -1,6 +1,6 @@
 package broker
 
-func (b *Broker) CalcAccountProfit(a *Account) (*Broker, error) {
+func (b *Broker) CalculateAccountProfit(a *Account) (*Broker, error) {
 
 	accIndex, err := b.FindAccountIndex(a.Id)
 	if err != nil {
@@ -13,11 +13,15 @@ func (b *Broker) CalcAccountProfit(a *Account) (*Broker, error) {
 
 	}
 
+	var prof float32
+
 	for _, v := range b.Positions {
 		if v.AccountId == a.Id {
-			b.Accounts[accIndex].Profit += v.Profit
+			prof += v.Profit
 		}
 	}
+
+	b.Accounts[accIndex].Profit = prof
 
 	updated, err := b.dbUpdateAccount(a)
 	if err != nil {

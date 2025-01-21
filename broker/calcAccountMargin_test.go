@@ -7,25 +7,25 @@ import (
 	"github.com/neotmp/go-trading/broker"
 )
 
-var positions = []broker.Position{
-	{Margin: 15.43053,
-		Volume: 0.03,
-		Pair:   "EURGBP",
-		Id:     38,
-	},
-	{Margin: 5.14351,
-		Volume: 0.01,
-		Pair:   "EURGBP",
-		Id:     37,
-	},
-	{Margin: 5.10595,
-		Volume: 0.01,
-		Pair:   "EURUSD",
-		Id:     36,
-	},
-}
-
 func TestCalcAccountMargin(t *testing.T) {
+
+	var positions = []broker.Position{
+		{Margin: 15.43053,
+			Volume: 0.03,
+			Pair:   "EURGBP",
+			Id:     38,
+		},
+		{Margin: 5.14351,
+			Volume: 0.01,
+			Pair:   "EURGBP",
+			Id:     37,
+		},
+		{Margin: 5.10595,
+			Volume: 0.01,
+			Pair:   "EURUSD",
+			Id:     36,
+		},
+	}
 
 	var got float32 = 0.0
 	var expected float32 = 25.679989

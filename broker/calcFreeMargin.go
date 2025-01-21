@@ -2,6 +2,7 @@ package broker
 
 // CalculateFreeMargin returns pointer to Broker
 // Free Margin = Equity - Margin
+// It is used to check if opening new position is allowed based on available free margin
 func (b *Broker) CalculateFreeMargin(a *Account) (*Broker, error) {
 	accId, err := b.FindAccountIndex(a.Id)
 	if err != nil {
