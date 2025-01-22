@@ -6,7 +6,7 @@ package broker
 // F.M = Equity - margin
 func (b *Broker) CalcAccountFreeMargin(a *Account) (*Broker, error) {
 
-	accIndex, err := b.FindAccountIndex(a.Id)
+	accIndex, err := b.AccountIndexFind(a.Id)
 	if err != nil {
 		return b, err
 	}
@@ -27,7 +27,7 @@ func (b *Broker) CalcAccountFreeMargin(a *Account) (*Broker, error) {
 
 	b.Accounts[accIndex].FreeMargin = b.Accounts[accIndex].Equity - fm
 
-	updated, err := b.dbUpdateAccount(a)
+	updated, err := b.dbAccountUpdate(a)
 	if err != nil {
 		return b, err
 	}

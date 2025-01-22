@@ -12,7 +12,7 @@ func main() {
 	database.Connect()
 
 	b := broker.Broker{}
-	brs, err := b.ListBrokers()
+	brs, err := b.BrokersList()
 	if err != nil {
 		fmt.Println(err, "Problem with listing brokers")
 	}

@@ -4,7 +4,7 @@ package broker
 // Account Margin = Sum of {Position[1].Margin ... + Position[n].Margin}
 func (b *Broker) CalcAccountMargin(a *Account) (*Broker, error) {
 
-	accIndex, err := b.FindAccountIndex(a.Id)
+	accIndex, err := b.AccountIndexFind(a.Id)
 	if err != nil {
 		return b, err
 	}
@@ -21,7 +21,7 @@ func (b *Broker) CalcAccountMargin(a *Account) (*Broker, error) {
 		}
 	}
 
-	updated, err := b.dbUpdateAccount(a)
+	updated, err := b.dbAccountUpdate(a)
 	if err != nil {
 		return b, err
 	}

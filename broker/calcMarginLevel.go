@@ -4,7 +4,7 @@ package broker
 // Margin Level =  (Equity/Margin) * 100
 func (b *Broker) CalculateMarginLevel(a *Account) (*Broker, error) {
 
-	accId, err := b.FindAccountIndex(a.Id)
+	accId, err := b.AccountIndexFind(a.Id)
 	if err != nil {
 		return b, err
 	}

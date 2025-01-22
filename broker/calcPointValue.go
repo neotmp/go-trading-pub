@@ -10,7 +10,7 @@ import (
 // Parameters: accepts Pair as string
 func (b *Broker) CalculatePointValue(accId uint16, p string) (float32, error) {
 
-	aId, err := b.FindAccountIndex(accId)
+	aId, err := b.AccountIndexFind(accId)
 	if err != nil {
 		return 0.0, err
 	}

@@ -8,7 +8,7 @@ import "fmt"
 func (b *Broker) CalculateAccountEquity(a *Account) (*Broker, error) {
 
 	// index of account
-	accInd, err := b.FindAccountIndex(a.Id)
+	accInd, err := b.AccountIndexFind(a.Id)
 	if err != nil {
 		return b, err
 	}
@@ -22,7 +22,7 @@ func (b *Broker) CalculateAccountEquity(a *Account) (*Broker, error) {
 	}
 
 	// if no open positions equity = balance
-	pos, err := b.FindPositions(a.Id)
+	pos, err := b.PositionsFind(a.Id)
 	if err != nil {
 		return b, err
 	}
@@ -40,7 +40,7 @@ func (b *Broker) CalculateAccountEquity(a *Account) (*Broker, error) {
 
 	b.Accounts[accInd].Equity = b.Accounts[accInd].Balance + equity
 
-	updated, err := b.dbUpdateAccount(a)
+	updated, err := b.dbAccountUpdate(a)
 	if err != nil {
 		return b, err
 	}

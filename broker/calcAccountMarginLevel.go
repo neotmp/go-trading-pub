@@ -5,7 +5,7 @@ package broker
 func (b *Broker) CalculateAccountMarginLevel(a *Account) (*Broker, error) {
 	a.MarginLevel = (a.Equity / a.Margin) * 100
 
-	updated, err := b.dbUpdateAccount(a)
+	updated, err := b.dbAccountUpdate(a)
 	if err != nil {
 		return b, err
 	}

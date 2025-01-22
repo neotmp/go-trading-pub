@@ -2,7 +2,7 @@ package broker
 
 func (b *Broker) CalculateAccountProfit(a *Account) (*Broker, error) {
 
-	accIndex, err := b.FindAccountIndex(a.Id)
+	accIndex, err := b.AccountIndexFind(a.Id)
 	if err != nil {
 		return b, err
 	}
@@ -23,7 +23,7 @@ func (b *Broker) CalculateAccountProfit(a *Account) (*Broker, error) {
 
 	b.Accounts[accIndex].Profit = prof
 
-	updated, err := b.dbUpdateAccount(a)
+	updated, err := b.dbAccountUpdate(a)
 	if err != nil {
 		return b, err
 	}
