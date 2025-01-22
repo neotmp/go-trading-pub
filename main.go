@@ -39,9 +39,9 @@ func main() {
 	// 	fmt.Println(v.Margin, "Roboforex Orders Margin")
 	// }
 
-	acc, err := roboForex.CalculateAccountEquity(roboForex.Accounts[0])
+	acc, err := roboForex.CalculatePositionSwap(roboForex.Positions[0])
 	if err != nil {
-		fmt.Println(err, "Problem w/ Equity")
+		fmt.Println(err, "Problem w/ Swap")
 	}
 
 	// acc, err := roboForex.FindAccount(roboForex.Accounts, roboForex.Accounts[0].Id)

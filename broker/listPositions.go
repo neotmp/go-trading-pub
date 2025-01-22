@@ -14,7 +14,7 @@ func (b *Broker) ListPositions() ([]*Position, error) {
 	order_id, change, account_id, pair_id, broker_id, account_id, commission, spread_pips,
 	swap_long, swap_short, margin 
 	FROM positions
-	WHERE broker_id = $1`
+	WHERE broker_id = $1 ORDER BY id`
 
 	rows, err := database.DB.Query(q, b.Id)
 	if err != nil {
