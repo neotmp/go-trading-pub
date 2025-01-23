@@ -12,6 +12,7 @@ func isLeapYear(date time.Time) bool {
 // CalcDays returns number of days elapsed between two dates
 // Used to calculate swaps that are applied daily
 // Accepts two params: start, and end time.Time
+// Does not return negative days
 func CalcDays(start, end time.Time) uint16 {
 
 	var days uint16 = 0
