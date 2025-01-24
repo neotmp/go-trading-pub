@@ -7,9 +7,10 @@ import (
 	"github.com/neotmp/go-trading/database"
 )
 
-func (b *Broker) BrokersList() ([]*Broker, error) {
+// BrokerLists returns the list of all brokers w/ nested Accounts, Orders and Positions as slices
+func BrokersList() ([]*Broker, error) {
 
-	q := `SELECT id, name, country, phone, email, memo, opened_at, status FROM brokers ORDER BY id`
+	q := `SELECT id, name, country, phone, email, memo, opened_at, status, edited_at FROM brokers ORDER BY id`
 
 	rows, err := database.DB.Query(q)
 	if err != nil {
@@ -33,6 +34,7 @@ func (b *Broker) BrokersList() ([]*Broker, error) {
 			&b.Memo,
 			&b.OpenedAt,
 			&b.Status,
+			&b.EditedAt,
 		)
 		if err != nil {
 			fmt.Println("Here2")

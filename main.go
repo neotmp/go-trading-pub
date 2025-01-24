@@ -11,94 +11,44 @@ func main() {
 
 	database.Connect()
 
-	b := broker.Broker{}
-	brs, err := b.BrokersList()
+	brs, err := broker.BrokersList()
 	if err != nil {
 		fmt.Println(err, "Problem with listing brokers")
 	}
-	fmt.Println(brs, "Brokers")
 
-	// o := broker.Order{
-	// 	Type:       1,
-	// 	Volume:     0.03,
-	// 	Pair:       "EURGBP",
-	// 	Price:      0.84459,
-	// 	Status:     1,
-	// 	AccountId:  1,
-	// 	BrokerId:   1,
-	// 	Margin:     0,
-	// 	PairId:     19,
-	// 	Commission: 0,
-	// 	SpreadPips: 2.5,
-	// 	Timestamp:  time.Now(),
-	// }
-
-	roboForex := brs[0]
-
-	// for _, v := range roboForex.Orders {
-	// 	fmt.Println(v.Margin, "Roboforex Orders Margin")
-	// }
-
-	acc, err := roboForex.CalculatePositionSwap(roboForex.Positions[0])
-	if err != nil {
-		fmt.Println(err, "Problem w/ Swap")
+	for _, v := range brs {
+		fmt.Println(v.Name)
 	}
 
-	// acc, err := roboForex.FindAccount(roboForex.Accounts, roboForex.Accounts[0].Id)
-	// if err != nil {
-	// 	fmt.Println(err)
+	// acc := broker.Account{
+	// 	Contract:    "Pro",
+	// 	Currency:    "USD",
+	// 	Leverage:    800,
+	// 	Lot:         100_000,
+	// 	StopOut:     40,
+	// 	OpenedAt:    time.Now(),
+	// 	Active:      true,
+	// 	Hedge:       true,
+	// 	MarginLevel: 0,
+	// 	BrokerId:    4,
+	// 	Memo:        "New New Account",
+	// 	ContractId:  1,
+	// 	Type:        1,
+	// 	CurrencyId:  2,
+	// 	Name:        "EDITED account name",
 	// }
 
-	fmt.Println(acc.Accounts[0].Equity, "accs Equity")
+	closeAcc, err := brs[0].AccountClose(brs[0].Accounts[3])
+	if err != nil {
+		fmt.Println("Error with closing account:", err)
+	}
 
-	//fmt.Println(acc.Accounts[0].Equity, "Equity main")
+	for _, v := range closeAcc.Accounts {
 
-	// fm, err := roboForex.CalculateFreeMargin(roboForex.Accounts[0])
-	// if err != nil {
-	// 	fmt.Println(err, "Problem w/ Free Margin")
-	// }
+		fmt.Println(v.Name, "Name")
+		fmt.Println(v.Leverage, "Lev")
+		fmt.Println(v.Active, "Active")
 
-	// ml, err := roboForex.CalculateMarginLevel(roboForex.Accounts[0])
-	// if err != nil {
-	// 	fmt.Println(err, "Problem w/ Free Margin")
-	// }
-
-	// fmt.Println(acc.Accounts[0].Margin, "Margin")
-	// fmt.Println(acc.Accounts[0].Equity, "Equity")
-	// fmt.Println(acc.Accounts[0].Balance, "Balance")
-	// fmt.Println(fm.Accounts[0].FreeMargin, "Free Margin")
-	// fmt.Println(ml.Accounts[0].MarginLevel, "Margin Level")
-
-	// orders, err := roboForex.PlaceOrder(&o)
-	// if err != nil {
-	// 	fmt.Println(err, "Problem w/ Order")
-	// }
-
-	// mm, err := roboForex.CalcAccountMargin(roboForex.Accounts[0])
-	// if err != nil {
-	// 	fmt.Println(err, "Problem w/ calcAccountMargin")
-	// }
-
-	// fmt.Println(mm.Accounts[0].Margin, "Acc Margin")
-
-	// for _, v := range orders.Orders {
-	// 	fmt.Println(v, "Orders Placed")
-	// }
-
-	// orders, err := roboForex.ListOrders()
-	// if err != nil {
-	// 	fmt.Println(err, "Problem w/ Orders")
-	// }
-
-	//fmt.Println(orders, "Orders")
-
-	// posPfofit, err := roboForex.CalcPositionProfit(roboForex.Accounts[0])
-	// if err != nil {
-	// 	fmt.Println(err, "Problem w/ Account Position profit")
-	// }
-
-	// for _, v := range posPfofit.Positions {
-	// 	fmt.Println(v, "Position Main")
-	// }
+	}
 
 }

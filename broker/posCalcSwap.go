@@ -12,6 +12,9 @@ func (b *Broker) CalculatePositionSwap(p *Position) (*Broker, error) {
 		return b, err
 	}
 
+
+	
+
 	// calculate number of days to apply swap
 	// nd = now from
 

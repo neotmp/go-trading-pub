@@ -1,5 +1,11 @@
 package broker
 
 func (b *Broker) BrokerEdit() (*Broker, error) {
-	return b, nil
+
+	eb, err := b.dbBrokerEdit()
+	if err != nil {
+		return b, err
+	}
+
+	return eb, nil
 }

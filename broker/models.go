@@ -12,6 +12,7 @@ type Broker struct {
 	Email     string      `json:"email"`
 	Memo      string      `json:"memo"`
 	OpenedAt  time.Time   `json:"opened_at"`
+	EditedAt  string      `json:"edited_at"`
 	Status    string      `json:"status"`
 	Accounts  []*Account  `json:"accounts"`
 	Orders    []*Order    `json:"orders"`
@@ -90,6 +91,7 @@ type Account struct {
 	ContractId  uint16    `json:"contract_id"` // FK
 	CurrencyId  uint16    `json:"currency_id"` // FK
 	Profit      float32   `json:"profit"`
+	Name        string    `json:"name"`
 }
 
 type AccountSpecs struct {

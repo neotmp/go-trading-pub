@@ -6,16 +6,16 @@ import (
 	"github.com/neotmp/go-trading/database"
 )
 
+// AccountList returnls a slice of pointers too all accounts of teh broker with given id
 func (b *Broker) AccountsList() ([]*Account, error) {
 
 	q := `SELECT id, balance, contract, type, currency, leverage, lot,
 	stopout, equity, free_margin, margin, margin_level, opened_at, closed_at, active,
-	hedge, broker_id, memo, contract_id, currency_id, profit FROM accounts WHERE broker_id = $1 ORDER BY id`
+	hedge, broker_id, memo, contract_id, currency_id, profit, name FROM accounts WHERE broker_id = $1 ORDER BY id`
 
 	rows, err := database.DB.Query(q, b.Id)
 	if err != nil {
-
-		fmt.Println(err)
+		return []*Account{}, err
 	}
 	defer rows.Close()
 
@@ -46,6 +46,7 @@ func (b *Broker) AccountsList() ([]*Account, error) {
 			&a.ContractId,
 			&a.CurrencyId,
 			&a.Profit,
+			&a.Name,
 		)
 		if err != nil {
 			fmt.Println(err)
@@ -57,7 +58,7 @@ func (b *Broker) AccountsList() ([]*Account, error) {
 	// get any error encountered during iteration
 	err = rows.Err()
 	if err != nil {
-		fmt.Println(err)
+		return []*Account{}, err
 	}
 
 	return data, nil
