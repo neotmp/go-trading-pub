@@ -7,7 +7,7 @@ type SRBrokerList struct {
 	Code    uint8  `json:"code"`
 	Message string `json:"message"`
 	Error   string `json:"error"`
-	Data    *Data  `json:"data"`
+	Data    Data   `json:"data"`
 }
 
 // Data Shape of Broker Edit
