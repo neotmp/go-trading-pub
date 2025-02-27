@@ -22,7 +22,7 @@ func TestBroOpen(t *testing.T) {
 		Email:    "email",
 		Memo:     "Some Cool Stuff here",
 		OpenedAt: time.Now(),
-		Status:   "Active",
+		Active:   true,
 	}
 
 	newBr := broOpen(&b)

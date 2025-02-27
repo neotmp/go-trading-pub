@@ -14,7 +14,7 @@ func (b *Broker) dbBrokerEdit() (*Broker, error) {
 	phone = $3,
 	email = $4,
 	memo = $5,
-	status = $6,
+	active = $6,
 	edited_at = $7
 	WHERE id = $8 
 	RETURNING id`
@@ -24,7 +24,7 @@ func (b *Broker) dbBrokerEdit() (*Broker, error) {
 		&b.Phone,
 		&b.Email,
 		&b.Memo,
-		&b.Status,
+		&b.Active,
 		time.Now(),
 		&b.Id).Scan(&b.Id); err != nil {
 		return b, err

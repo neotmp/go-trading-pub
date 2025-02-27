@@ -1,7 +1,6 @@
 package broker
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/neotmp/go-trading/database"
@@ -10,13 +9,13 @@ import (
 // BrokerLists returns the list of all brokers w/ nested Accounts, Orders and Positions as slices
 func BrokersList() ([]*Broker, error) {
 
-	q := `SELECT id, name, country, phone, email, memo, opened_at, status, edited_at FROM brokers ORDER BY id`
+	q := `SELECT id, name, country, phone, email, memo, opened_at, active, edited_at FROM brokers ORDER BY id`
 
 	rows, err := database.DB.Query(q)
 	if err != nil {
 
 		fmt.Println("Here1")
-		return nil, errors.New(err.Error())
+		return nil, err
 	}
 	defer rows.Close()
 
@@ -33,12 +32,12 @@ func BrokersList() ([]*Broker, error) {
 			&b.Email,
 			&b.Memo,
 			&b.OpenedAt,
-			&b.Status,
+			&b.Active,
 			&b.EditedAt,
 		)
 		if err != nil {
 			fmt.Println("Here2")
-			return nil, errors.New(err.Error())
+			return nil, err
 		}
 
 		data = append(data, &b)
@@ -48,7 +47,7 @@ func BrokersList() ([]*Broker, error) {
 	err = rows.Err()
 	if err != nil {
 		fmt.Println("Here3")
-		return nil, errors.New(err.Error())
+		return nil, err
 	}
 
 	// Loop over all accounts
@@ -56,7 +55,7 @@ func BrokersList() ([]*Broker, error) {
 	for _, v := range data {
 		acc, err := v.AccountsList()
 		if err != nil {
-			return nil, errors.New(err.Error())
+			return nil, err
 		}
 
 		for _, vv := range acc {
@@ -70,7 +69,7 @@ func BrokersList() ([]*Broker, error) {
 	for _, v := range data {
 		o, err := v.OrdersList()
 		if err != nil {
-			return nil, errors.New(err.Error())
+			return nil, err
 		}
 
 		for _, vv := range o {
@@ -84,7 +83,7 @@ func BrokersList() ([]*Broker, error) {
 	for _, v := range data {
 		o, err := v.PositionsList()
 		if err != nil {
-			return nil, errors.New(err.Error())
+			return nil, err
 		}
 
 		for _, vv := range o {

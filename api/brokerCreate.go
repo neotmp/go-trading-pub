@@ -7,9 +7,10 @@ import (
 	"github.com/neotmp/go-trading/broker"
 )
 
-func BrokerEdit(c *fiber.Ctx) error {
+func BrokerCreate(c *fiber.Ctx) error {
+
 	// Server Responds w/ data
-	res := new(SRBrokerEdit)
+	res := new(SRBrokerCreate)
 
 	// get account Id from payload
 	b := new(broker.Broker)
@@ -19,10 +20,10 @@ func BrokerEdit(c *fiber.Ctx) error {
 		return err
 	}
 
-	b, err := b.BrokerEdit()
+	b, err := b.BrokerCreate()
 	if err != nil {
 		res.Error = fmt.Sprint(err)
-		res.Message = fmt.Sprintf("Could not edit broker with given id: %d", b.Id)
+		res.Message = fmt.Sprintf("Could not create broker with given name: %s", b.Name)
 		res.Code = 0
 		return c.JSON(res)
 
@@ -32,8 +33,8 @@ func BrokerEdit(c *fiber.Ctx) error {
 	// 3 - success at creating, 4 - success at deleting
 
 	//Data structure in case of success
-	res.Message = "Broker has been successfully updated."
-	res.Code = 2
+	res.Message = "Broker has been successfully created."
+	res.Code = 3
 	res.Data = b
 
 	return c.JSON(res)

@@ -1,7 +1,6 @@
 package broker
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/neotmp/go-trading/database"
@@ -17,7 +16,7 @@ func (b *Broker) OrdersList() ([]*Order, error) {
 	if err != nil {
 
 		fmt.Println("Here1")
-		return nil, errors.New(err.Error())
+		return nil, err
 	}
 	defer rows.Close()
 
@@ -44,7 +43,7 @@ func (b *Broker) OrdersList() ([]*Order, error) {
 		)
 		if err != nil {
 			fmt.Println("Here2")
-			return nil, errors.New(err.Error())
+			return nil, err
 		}
 
 		data = append(data, &o)
@@ -54,7 +53,7 @@ func (b *Broker) OrdersList() ([]*Order, error) {
 	err = rows.Err()
 	if err != nil {
 		fmt.Println("Here3")
-		return nil, errors.New(err.Error())
+		return nil, err
 	}
 
 	return data, nil

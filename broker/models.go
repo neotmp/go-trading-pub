@@ -13,7 +13,7 @@ type Broker struct {
 	Memo      string      `json:"memo"`
 	OpenedAt  time.Time   `json:"opened_at"`
 	EditedAt  string      `json:"edited_at"`
-	Status    string      `json:"status"`
+	Active    bool        `json:"active"`
 	Accounts  []*Account  `json:"accounts"`
 	Orders    []*Order    `json:"orders"`
 	Positions []*Position `json:"positions"`

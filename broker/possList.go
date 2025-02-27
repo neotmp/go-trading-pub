@@ -1,14 +1,10 @@
 package broker
 
 import (
-	"fmt"
-
 	"github.com/neotmp/go-trading/database"
 )
 
 func (b *Broker) PositionsList() ([]*Position, error) {
-
-	fmt.Println(b)
 
 	q := `SELECT id, pair, volume, timestamp, type, price, sl, ts, tp, profit, memo, 
 	order_id, change, account_id, pair_id, broker_id, account_id, commission, spread_pips,
@@ -64,8 +60,6 @@ func (b *Broker) PositionsList() ([]*Position, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	fmt.Println(data)
 
 	return data, nil
 }

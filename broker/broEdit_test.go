@@ -21,7 +21,7 @@ func TestBroEdit(t *testing.T) {
 		Email:    "email",
 		Memo:     "Some Cool Stuff here",
 		OpenedAt: time.Now(),
-		Status:   "Active",
+		Active:   true,
 	}
 
 	b.Name = "New Name"
@@ -29,7 +29,7 @@ func TestBroEdit(t *testing.T) {
 	b.Phone = "New Phone"
 	b.Email = "New Email"
 	b.Memo = "New Memo"
-	b.Status = "New Status"
+	b.Active = true
 
 	editedBr := editBroker(&b)
 
@@ -53,8 +53,8 @@ func TestBroEdit(t *testing.T) {
 		t.Errorf("failed to edit broker, given memo %s:, expected %s:", b.Memo, editedBr.Memo)
 	}
 
-	if b.Status != editedBr.Status {
-		t.Errorf("failed to edit broker, given status %s:, expected %s:", b.Status, editedBr.Status)
+	if b.Active != editedBr.Active {
+		t.Errorf("failed to edit broker, given status %t:, expected %t:", b.Active, editedBr.Active)
 	}
 
 }

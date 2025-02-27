@@ -25,7 +25,7 @@ func (b *Broker) BrokerClose() (*Broker, error) {
 	if total != 0 {
 		return b, errors.New("broker with none-zero account(s) cannot be closed.")
 	} else {
-		b.Status = "Closed"
+		b.Active = false
 	}
 
 	eb, err := b.dbBrokerEdit()
