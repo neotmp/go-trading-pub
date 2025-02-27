@@ -1,3 +1,5 @@
+WORK in PROGRES
+
 PROBLEM
 
 So, you have multiple Forex accounts with multiple brokers*. There's no way you can aggregate the trading data from all sources unless you’ re willing to subject yourself to tedious operations of downloading individual P&L reports and trades history, 
