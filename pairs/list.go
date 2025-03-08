@@ -2,7 +2,9 @@ package pairs
 
 import "github.com/neotmp/go-trading/database"
 
-func ListCurrencies() ([]*CurrencyPair, error) {
+// ListCurrencies returns all currency pairs used by brokers
+// Currently only majors
+func List() ([]*CurrencyPair, error) {
 
 	rows, err := database.DB.Query("SELECT id, symbol, name FROM currency_pairs")
 	if err != nil {

@@ -73,6 +73,7 @@ func main() {
 		//Type:       1,
 		//Active:     true,
 		//OpenedAt:   time.Now(),
+
 	}
 
 	// tr := broker.Transaction{
@@ -92,13 +93,15 @@ func main() {
 		Volume:     0.01,
 		Pair:       "EURUSD",
 		Timestamp:  time.Now(),
-		Price:      1.071234,
+		Price:      1.05123,
 		Memo:       "First order to fill",
 		PairId:     22,
 		BrokerId:   br.Id,
 		AccountId:  a.Id,
 		Type:       1,
-		Commission: 0,
+		Commission: -1.0,
+		Swap:       2.0,
+		Margin:     5,
 	}
 
 	cp, err := p.Close()

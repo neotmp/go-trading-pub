@@ -26,6 +26,7 @@ type Account struct {
 	Currency    string    `json:"currency"`                    // USD JOIN
 	Profit      float32   `json:"profit"`
 	Name        string    `json:"name"`
+	Change      float32   `json:"change"`
 }
 
 type AccountSpecs struct {

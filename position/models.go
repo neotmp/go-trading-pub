@@ -21,7 +21,8 @@ type Position struct {
 	Change     float32   `json:"change"`
 	Commission float32   `json:"commission"`
 	Margin     float32   `json:"margin"`    // margin used to open positions
-	Direction  uint8     `json:"direction"` //1 - buy, 0 - sell
+	Direction  uint8     `json:"direction"` //1 - buy, 2 - sell
+	Swap       float32   `json:"swap"`
 
 	// Joined from AccountSpecs on PairID
 	PipSize       float32 `json:"pipSize" db:"pip_size"`

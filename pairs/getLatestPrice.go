@@ -11,9 +11,9 @@ import (
 func GetLatestPrice(pair string) *CurrencyQuote {
 
 	pair = strings.ToLower(pair)
-	//bc := pair[:3]
-	//qc := pair[3:]
-	//str := bc + "_" + qc
+	bc := pair[:3]
+	qc := pair[3:]
+	str := bc + "_" + qc
 
 	fmt.Println(pair, "PAIR")
 
@@ -24,7 +24,7 @@ func GetLatestPrice(pair string) *CurrencyQuote {
 		low,
 		close
 		FROM %s
-		ORDER BY id DESC LIMIT 1`, pair)
+		ORDER BY id DESC LIMIT 1`, str)
 
 	cq := new(CurrencyQuote)
 
