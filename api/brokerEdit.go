@@ -19,7 +19,7 @@ func BrokerEdit(c *fiber.Ctx) error {
 		return err
 	}
 
-	b, err := b.BrokerEdit()
+	b, err := b.Edit()
 	if err != nil {
 		res.Error = fmt.Sprint(err)
 		res.Message = fmt.Sprintf("Could not edit broker with given id: %d", b.Id)

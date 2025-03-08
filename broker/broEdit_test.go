@@ -2,7 +2,6 @@ package broker_test
 
 import (
 	"testing"
-	"time"
 
 	"github.com/neotmp/go-trading/broker"
 )
@@ -15,13 +14,13 @@ func editBroker(b *broker.Broker) *broker.Broker {
 func TestBroEdit(t *testing.T) {
 
 	b := broker.Broker{
-		Name:     "Old Name",
-		Country:  "Old Country",
-		Phone:    "12345",
-		Email:    "email",
-		Memo:     "Some Cool Stuff here",
-		OpenedAt: time.Now(),
-		Active:   true,
+		Name:    "Old Name",
+		Country: "Old Country",
+		Phone:   "12345",
+		Email:   "email",
+		Memo:    "Some Cool Stuff here",
+		//OpenedAt: time.Now(), TO DO
+		Active: true,
 	}
 
 	b.Name = "New Name"

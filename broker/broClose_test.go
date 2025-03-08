@@ -3,12 +3,13 @@ package broker_test
 import (
 	"testing"
 
+	"github.com/neotmp/go-trading/account"
 	"github.com/neotmp/go-trading/broker"
 )
 
 func TestBroClose(t *testing.T) {
 
-	noneZeroAcc := broker.Account{
+	noneZeroAcc := account.Account{
 		Balance: 100.00,
 	}
 

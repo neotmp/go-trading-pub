@@ -12,4 +12,10 @@ func Setup(app *fiber.App) {
 	app.Post("/api/broker/edit", api.BrokerEdit)
 	app.Post("/api/broker/create", api.BrokerCreate)
 	app.Get("/api/broker/delete/*", api.BrokerDelete)
+	// account
+	//app.Post("/api/account/create", api.AccountCreate)
+	//app.Post("/api/account/edit", api.AccountEdit)
+	// order
+
+	app.Post("/api/position/create", api.PositionCreate)
 }

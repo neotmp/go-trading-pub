@@ -8,6 +8,11 @@ import (
 	"github.com/neotmp/go-trading/broker"
 )
 
+// TO DO Broker Can only be deleted if:
+// 1. Current balance = 0
+// 2. No positions
+// if brokeer has a history of positions they all should be closed
+// and balance should be zero, then the broker cann be archived, i.e. active would be false
 func BrokerDelete(c *fiber.Ctx) error {
 
 	i := c.Params("*")
@@ -30,7 +35,7 @@ func BrokerDelete(c *fiber.Ctx) error {
 	b.Id = uint16(id)
 
 	// handle delete function
-	err = b.BrokerDelete()
+	err = b.Delete()
 	if err != nil {
 		res.Error = fmt.Sprint(err)
 		res.Message = fmt.Sprintf("Could not delete broker with given id: %d", b.Id)

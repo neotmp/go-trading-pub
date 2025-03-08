@@ -12,7 +12,7 @@ func BrokerList(c *fiber.Ctx) error {
 	// Server Responds w/ data
 	res := new(SRBrokerList)
 
-	l, err := broker.BrokersList()
+	l, err := broker.List()
 	if err != nil {
 		res.Error = fmt.Sprint(err)
 		res.Message = fmt.Sprint("Could not find list of brokers")

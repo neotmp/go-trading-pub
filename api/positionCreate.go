@@ -7,10 +7,10 @@ import (
 	"github.com/neotmp/go-trading/position"
 )
 
-func PositionClose(c *fiber.Ctx) error {
+func PositionCreate(c *fiber.Ctx) error {
 
 	// Server Responds w/ data
-	res := new(SRPositionClose)
+	res := new(SRPositionCreate)
 
 	// get order from payload
 	p := new(position.Position)
@@ -20,11 +20,11 @@ func PositionClose(c *fiber.Ctx) error {
 		return err
 	}
 
-	p, err := p.Close()
+	p, err := p.Create()
 	// If we return nil, we don't have access to position values!!!!
 	if err != nil {
 		res.Error = fmt.Sprint(err)
-		res.Message = fmt.Sprintf("Could not close position with broker id: %d, account id: %d, currency id: %d", p.BrokerId, p.AccountId, p.PairId)
+		res.Message = fmt.Sprintf("Could not create position with broker id: %d, account id: %d, currency id: %d", p.BrokerId, p.AccountId, p.PairId)
 		res.Code = 0
 		return c.JSON(res)
 
@@ -34,7 +34,7 @@ func PositionClose(c *fiber.Ctx) error {
 	// 3 - success at creating, 4 - success at deleting
 
 	//Data structure in case of success
-	res.Message = "Position has been successfully closed."
+	res.Message = "Position has been successfully created."
 	res.Code = 3
 	res.Data = p
 

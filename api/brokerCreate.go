@@ -20,7 +20,7 @@ func BrokerCreate(c *fiber.Ctx) error {
 		return err
 	}
 
-	b, err := b.BrokerCreate()
+	b, err := b.Create()
 	if err != nil {
 		res.Error = fmt.Sprint(err)
 		res.Message = fmt.Sprintf("Could not create broker with given name: %s", b.Name)

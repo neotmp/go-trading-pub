@@ -1,81 +1,111 @@
 package main
 
 import (
-	"log"
-	"os"
+	"fmt"
+	"time"
 
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/joho/godotenv"
+	"github.com/neotmp/go-trading/account"
+	"github.com/neotmp/go-trading/broker"
 	"github.com/neotmp/go-trading/database"
-	"github.com/neotmp/go-trading/routes"
+	"github.com/neotmp/go-trading/position"
 )
 
 func main() {
 
 	database.Connect()
 
-	err := godotenv.Load()
+	// err := godotenv.Load()
+	// if err != nil {
+	// 	log.Fatalf("unable to load .env file: %e", err)
+	// }
+
+	// app := fiber.New()
+	// app.Use(cors.New(cors.Config{
+	// 	AllowHeaders:     "Origin,Content-Type,Accept,Content-Length,Accept-Language,Accept-Encoding,Connection,Access-Control-Allow-Origin",
+	// 	AllowOrigins:     os.Getenv("ALLOW_ORIGINS"),
+	// 	AllowCredentials: true,
+	// 	AllowMethods:     "GET,POST,HEAD,PUT,DELETE,PATCH",
+	// }))
+
+	// routes.Setup(app)
+
+	// if os.Getenv("ENV") == "dev" {
+	// 	app.Listen(":3333")
+	// } else {
+	// 	log.Fatal(app.ListenTLS(":4753", "./cert.pem", "./cert.key"))
+	// }
+
+	br := broker.Broker{
+		Id: 8,
+		//Name:     "My Refactored Edited Primary Broker",
+		//Country:  "Refactored Edited Zanzibar",
+		//Phone:    "+983-234-234-2342",
+		//Email:    "zanzibar@broker.br",
+		//Memo:     "My cool refactored memo here.",
+		//OpenedAt: time.Now().Format("2006-01-02"),
+		//Active:   true,
+	}
+
+	// list, err := account.List(br.Id)
+	// if err != nil {
+	// 	fmt.Println(err)
+
+	// }
+
+	// fmt.Println(list, "Accounts list")
+
+	// for _, v := range list {
+	// 	fmt.Println(v.OpenedAt, "Accounts")
+
+	// }
+
+	a := account.Account{
+		Id: 22,
+		//Name:       "Edited Refactored Trade account",
+		//BrokerId:   br.Id,
+		//Broker:     "Edited Refactored Primary Broker",
+		//CurrencyId: 1,
+		//Currency:   "USD",
+		//Contract:   "Pro",
+		//ContractId: 1,
+		//Memo:       "Refactored memo edited",
+		//Hedge:      false,
+		//Type:       1,
+		//Active:     true,
+		//OpenedAt:   time.Now(),
+	}
+
+	// tr := broker.Transaction{
+	// 	Timestamp:  time.Now(),
+	// 	BrokerId:   br.Id,
+	// 	AccountId:  a.Id,
+	// 	CurrencyId: a.CurrencyId,
+	// 	Direction:  1,
+	// 	Amount:     100,
+	// 	Memo:       "My first deposit",
+	// 	Fee:        0,
+	// }
+
+	p := position.Position{
+		Id:         57,
+		Direction:  2,
+		Volume:     0.01,
+		Pair:       "EURUSD",
+		Timestamp:  time.Now(),
+		Price:      1.071234,
+		Memo:       "First order to fill",
+		PairId:     22,
+		BrokerId:   br.Id,
+		AccountId:  a.Id,
+		Type:       1,
+		Commission: 0,
+	}
+
+	cp, err := p.Close()
 	if err != nil {
-		log.Fatalf("unable to load .env file: %e", err)
+		fmt.Println(err, "Could not create account.")
 	}
 
-	app := fiber.New()
-	app.Use(cors.New(cors.Config{
-		AllowHeaders:     "Origin,Content-Type,Accept,Content-Length,Accept-Language,Accept-Encoding,Connection,Access-Control-Allow-Origin",
-		AllowOrigins:     os.Getenv("ALLOW_ORIGINS"),
-		AllowCredentials: true,
-		AllowMethods:     "GET,POST,HEAD,PUT,DELETE,PATCH",
-	}))
-
-	routes.Setup(app)
-
-	if os.Getenv("ENV") == "dev" {
-		app.Listen(":3333")
-	} else {
-		log.Fatal(app.ListenTLS(":4753", "./cert.pem", "./cert.key"))
-	}
-
-	// database.Connect()
-
-	// brs, err := broker.BrokersList()
-	// if err != nil {
-	// 	fmt.Println(err, "Problem with listing brokers")
-	// }
-
-	// for _, v := range brs {
-	// 	fmt.Println(v.Name)
-	// }
-
-	// acc := broker.Account{
-	// 	Contract:    "Pro",
-	// 	Currency:    "USD",
-	// 	Leverage:    800,
-	// 	Lot:         100_000,
-	// 	StopOut:     40,
-	// 	OpenedAt:    time.Now(),
-	// 	Active:      true,
-	// 	Hedge:       true,
-	// 	MarginLevel: 0,
-	// 	BrokerId:    4,
-	// 	Memo:        "New New Account",
-	// 	ContractId:  1,
-	// 	Type:        1,
-	// 	CurrencyId:  2,
-	// 	Name:        "EDITED account name",
-	// }
-
-	// closeAcc, err := brs[0].AccountClose(brs[0].Accounts[3])
-	// if err != nil {
-	// 	fmt.Println("Error with closing account:", err)
-	// }
-
-	// for _, v := range closeAcc.Accounts {
-
-	// 	fmt.Println(v.Name, "Name")
-	// 	fmt.Println(v.Leverage, "Lev")
-	// 	fmt.Println(v.Active, "Active")
-
-	// }
+	fmt.Println(cp, "My Order")
 
 }
