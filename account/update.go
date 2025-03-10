@@ -5,7 +5,7 @@ package account
 // equity and is called by other functions
 func Update(a *Account) (*Account, error) {
 
-	a, err := a.dbUpdate()
+	a, err := a.DbUpdate()
 	if err != nil {
 		return nil, nil
 	}

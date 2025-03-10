@@ -4,10 +4,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/neotmp/go-trading/account"
 	"github.com/neotmp/go-trading/broker"
 	"github.com/neotmp/go-trading/database"
-	"github.com/neotmp/go-trading/position"
+	"github.com/neotmp/go-trading/transaction"
 )
 
 func main() {
@@ -59,22 +58,22 @@ func main() {
 
 	// }
 
-	a := account.Account{
-		Id: 22,
-		//Name:       "Edited Refactored Trade account",
-		//BrokerId:   br.Id,
-		//Broker:     "Edited Refactored Primary Broker",
-		//CurrencyId: 1,
-		//Currency:   "USD",
-		//Contract:   "Pro",
-		//ContractId: 1,
-		//Memo:       "Refactored memo edited",
-		//Hedge:      false,
-		//Type:       1,
-		//Active:     true,
-		//OpenedAt:   time.Now(),
+	//a := account.Account{
+	//	Id: 11,
+	//Name:       "Edited Refactored Trade account",
+	//BrokerId:   br.Id,
+	//Broker:     "Edited Refactored Primary Broker",
+	//CurrencyId: 1,
+	//Currency:   "USD",
+	//Contract:   "Pro",
+	//ContractId: 1,
+	//Memo:       "Refactored memo edited",
+	//Hedge:      false,
+	//Type:       1,
+	//Active:     true,
+	//OpenedAt:   time.Now(),
 
-	}
+	//}
 
 	// tr := broker.Transaction{
 	// 	Timestamp:  time.Now(),
@@ -87,28 +86,50 @@ func main() {
 	// 	Fee:        0,
 	// }
 
-	p := position.Position{
-		Id:         57,
-		Direction:  2,
-		Volume:     0.01,
-		Pair:       "EURUSD",
-		Timestamp:  time.Now(),
-		Price:      1.05123,
-		Memo:       "First order to fill",
-		PairId:     22,
-		BrokerId:   br.Id,
-		AccountId:  a.Id,
-		Type:       1,
-		Commission: -1.0,
-		Swap:       2.0,
-		Margin:     5,
+	// p := position.Position{
+	// 	Id:         57,
+	// 	Direction:  2,
+	// 	Volume:     0.01,
+	// 	Pair:       "EURUSD",
+	// 	Timestamp:  time.Now(),
+	// 	Price:      1.05123,
+	// 	Memo:       "First order to fill",
+	// 	PairId:     22,
+	// 	BrokerId:   br.Id,
+	// 	AccountId:  a.Id,
+	// 	Type:       1,
+	// 	Commission: -1.0,
+	// 	Swap:       2.0,
+	// 	Margin:     5,
+	// }
+
+	// cp, err := p.Close()
+	// if err != nil {
+	// 	fmt.Println(err, "Could not create account.")
+	// }
+
+	tran := transaction.TWithdrawal{
+		Timestamp: time.Now(),
+		BrokerId:  br.Id,
+		AccountId: 11,
+
+		CurrencyId: 1, // usd
+		Amount:     500,
+		Memo:       "Deposit funds",
 	}
 
-	cp, err := p.Close()
+	tr, acc, err := tran.Withdraw()
 	if err != nil {
-		fmt.Println(err, "Could not create account.")
+		fmt.Println(err, "can't deposit funds to/from this account")
 	}
 
-	fmt.Println(cp, "My Order")
+	// if error returns nil as oyur object
+	// if d == nil {
+	// 	fmt.Println("Could not get account")
+	// } else {
+	// 	fmt.Println("Cash account:", d.Type == 0, d.Balance, "My Deposit")
+	// }
+
+	fmt.Println(tr, acc, "TR, ACC")
 
 }

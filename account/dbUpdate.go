@@ -9,7 +9,7 @@ import (
 // modify position,
 // close position
 // change account info,
-func (a *Account) dbUpdate() (*Account, error) {
+func (a *Account) DbUpdate() (*Account, error) {
 
 	q := `UPDATE accounts SET
 	balance = $1,
@@ -31,8 +31,9 @@ func (a *Account) dbUpdate() (*Account, error) {
 	memo = $17,
 	contract_id = $18,
 	currency_id = $19,
-	profit = $20
-	WHERE id = $21 
+	profit = $20,
+	change = $21
+	WHERE id = $22 
 	RETURNING id`
 
 	if err := database.DB.QueryRow(q, &a.Balance,
@@ -55,6 +56,7 @@ func (a *Account) dbUpdate() (*Account, error) {
 		&a.ContractId,
 		&a.CurrencyId,
 		&a.Profit,
+		&a.Change,
 		&a.Id).Scan(&a.Id); err != nil {
 		return nil, err
 	}

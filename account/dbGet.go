@@ -31,7 +31,8 @@ func dbGet(id uint16) (*Account, error) {
 	type, 
 	currency_id,
 	profit, 
-	name
+	name,
+	change
 	FROM accounts WHERE
 	id = $1`
 
@@ -58,6 +59,7 @@ func dbGet(id uint16) (*Account, error) {
 		&a.CurrencyId,
 		&a.Profit,
 		&a.Name,
+		&a.Change,
 	); err != nil {
 
 		if err == sql.ErrNoRows {

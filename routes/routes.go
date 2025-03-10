@@ -18,4 +18,9 @@ func Setup(app *fiber.App) {
 	// order
 
 	app.Post("/api/position/create", api.PositionCreate)
+	// transactions
+	app.Post("/api/account/deposit", api.Deposit)
+	app.Post("/api/account/withdraw", api.Withdraw)
+	app.Post("/api/account/transfer", api.Transfer)
+
 }

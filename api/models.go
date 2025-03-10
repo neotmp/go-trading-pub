@@ -84,6 +84,14 @@ type SRPositionClose struct {
 	Data    any    `json:"data"`
 }
 
+// Covers all cases where funds are transfered
+type SRTransaction struct {
+	Code    uint8  `json:"code"`
+	Message string `json:"message"`
+	Error   string `json:"error"`
+	Data    any    `json:"data"`
+}
+
 type Data struct {
 	Brokers []*broker.Broker `json:"brokers"`
 	//Accounts     []*account.Account         `json:"accounts"`

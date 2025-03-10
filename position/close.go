@@ -61,31 +61,35 @@ func (p *Position) Close() (*Position, error) {
 	// 	return nil, err
 	// }
 
+	// calculate account balance
 	a, err = p.AccountBalance(a)
 	if err != nil {
 		return nil, err
 	}
-
+	// calculate account margin
 	a, err = p.AccountMargin(a)
 	if err != nil {
 		return nil, err
 	}
-
+	// calculate account equity
 	a, err = AccountEquity(a)
 	if err != nil {
 		return nil, err
 	}
 
+	// calculate account free margin
 	a, err = AccountFreeMargin(a)
 	if err != nil {
 		return nil, err
 	}
 
+	// calculate account margin level
 	a, err = AccountMarginLevel(a)
 	if err != nil {
 		return nil, err
 	}
 
+	// account change
 	a, err = AccountChange(a)
 	if err != nil {
 		return nil, err
@@ -93,7 +97,11 @@ func (p *Position) Close() (*Position, error) {
 
 	fmt.Println(a.Profit, "A Profit")
 
-	//Equity(p.AccountId)
+	// account update
+	err = AccountUpdate(a)
+	if err != nil {
+		return nil, err
+	}
 
 	//fmt.Println(p.Profit, "P")
 
