@@ -15,7 +15,7 @@ func GetLatestPrice(pair string) *CurrencyQuote {
 	qc := pair[3:]
 	str := bc + "_" + qc
 
-	fmt.Println(pair, "PAIR")
+	//fmt.Println(pair, str, "PAIR")
 
 	qr := fmt.Sprintf(`SELECT id,
 		date,
@@ -40,9 +40,11 @@ func GetLatestPrice(pair string) *CurrencyQuote {
 
 			fmt.Println("No Currency with this code")
 
-		}
+			return nil
 
+		}
 		fmt.Println(err)
+		return nil
 
 	}
 

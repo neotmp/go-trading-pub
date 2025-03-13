@@ -1,3 +1,3 @@
-Work in progress
-Details can be found in Wiki
-Planned work in projects
+WORK in PROGRES
+
+Reports on progress can be found in wiki

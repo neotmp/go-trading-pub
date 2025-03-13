@@ -13,14 +13,13 @@ func Setup(app *fiber.App) {
 	app.Post("/api/broker/create", api.BrokerCreate)
 	app.Get("/api/broker/delete/*", api.BrokerDelete)
 	// account
-	//app.Post("/api/account/create", api.AccountCreate)
-	//app.Post("/api/account/edit", api.AccountEdit)
-	// order
+	app.Post("/api/account/create", api.AccountCreate)
+	app.Post("/api/account/edit", api.AccountEdit)
 
+	// position
 	app.Post("/api/position/create", api.PositionCreate)
-	// transactions
-	app.Post("/api/account/deposit", api.Deposit)
-	app.Post("/api/account/withdraw", api.Withdraw)
-	app.Post("/api/account/transfer", api.Transfer)
+	app.Post("/api/position/close", api.PositionClose)
+	// funds
+	app.Post("/api/funds/transfer", api.Transfer)
 
 }

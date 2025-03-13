@@ -11,7 +11,7 @@ func editBroker(b *broker.Broker) *broker.Broker {
 
 }
 
-func TestBroEdit(t *testing.T) {
+func TestEdit(t *testing.T) {
 
 	b := broker.Broker{
 		Name:    "Old Name",

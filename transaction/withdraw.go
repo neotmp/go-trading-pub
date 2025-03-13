@@ -6,38 +6,35 @@ import (
 	"github.com/neotmp/go-trading/account"
 )
 
-// Withdraw debits cash account
-// params account id uint16, amount float32
-// Funds can be withdrawn only within the parameters of equity
-// Withdrawal results in equity drop, reduced (negative) free margin, and reduced margin level
-// that may give rise to inadequate cover and subsequent rorced closure of positions - margin call
-// TO DO Reflect above mentioned logic into the method.
-func (w *TWithdrawal) Withdraw() (*TWithdrawal, *account.Account, error) {
+func (t *Transaction) Withdraw() (*Transaction, *account.Account, error) {
+
+	// TO DO check availability of funds when transfering from trade account with open positions
+	// Equity cannot go negative
 
 	// get account
-	a, err := account.Get(w.AccountId)
+	a, err := account.Get(t.AccountId)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	// check if it's a cash type account
 
-	if a.Type != 0 {
+	if t.External && a.Type != 0 {
 		return nil, nil, errors.New("you can withdraw funds only from cash account")
 	}
 
 	// balance check
-	if a.Balance < w.Amount {
+	if a.Balance < t.Amount {
 		return nil, nil, errors.New("amount to withdraw can not exceed the balance of the debit account")
 	}
 
-	a.Balance -= w.Amount
+	a.Balance -= t.Amount
 
-	a, err = dbUpdate(a)
+	a, err = dbExternal(a)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	return w, a, nil
+	return t, a, nil
 
 }

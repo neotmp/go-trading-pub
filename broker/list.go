@@ -5,6 +5,9 @@ import (
 
 	"github.com/neotmp/go-trading/account"
 	"github.com/neotmp/go-trading/database"
+	"github.com/neotmp/go-trading/order"
+	"github.com/neotmp/go-trading/position"
+	"github.com/neotmp/go-trading/transaction"
 )
 
 // BrokerLists returns the list of all brokers w/ nested Accounts, Orders and Positions as slices
@@ -64,31 +67,41 @@ func List() ([]*Broker, error) {
 
 	// Loop over all orders
 
-	// for _, v := range data {
-	// 	o, err := v.OrdersList()
-	// 	if err != nil {
-	// 		return nil, err
-	// 	}
+	for _, v := range data {
+		o, err := order.List(v.Id)
+		if err != nil {
+			return nil, err
+		}
 
-	// 	for _, vv := range o {
-	// 		v.Orders = append(v.Orders, vv)
-	// 	}
+		v.Orders = append(v.Orders, o...)
 
-	// }
+	}
 
 	// Loop over all positions
 
-	// for _, v := range data {
-	// 	o, err := v.PositionsList()
-	// 	if err != nil {
-	// 		return nil, err
-	// 	}
+	for _, v := range data {
 
-	// 	for _, vv := range o {
-	// 		v.Positions = append(v.Positions, vv)
-	// 	}
+		pos, err := position.ListAll(v.Id)
+		if err != nil {
+			return nil, err
+		}
 
-	// }
+		v.Positions = append(v.Positions, pos...)
+
+	}
+
+	// Loop over all transactions
+
+	for _, v := range data {
+
+		tr, err := transaction.List(v.Id)
+		if err != nil {
+			return nil, err
+		}
+
+		v.Transactions = append(v.Transactions, tr...)
+
+	}
 
 	return data, nil
 }

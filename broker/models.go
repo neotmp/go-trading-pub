@@ -1,9 +1,10 @@
 package broker
 
 import (
-	"time"
-
 	"github.com/neotmp/go-trading/account"
+	"github.com/neotmp/go-trading/order"
+	"github.com/neotmp/go-trading/position"
+	"github.com/neotmp/go-trading/transaction"
 )
 
 type Broker struct {
@@ -18,50 +19,11 @@ type Broker struct {
 	Active   bool   `json:"active"`
 	// AccountContracts  []*AccountContract `json:"accountContracts" db:"account_contracts"`
 	// AccountCurrencies []*AccountCurrency `json:"accountCurrencies" db:"account_currencies"`
-	Accounts []*account.Account `json:"accounts"`
-	// Orders            []*Order           `json:"orders"`
-	// Positions         []*Position        `json:"positions"`
-	// Transactions      []*Transaction     `json:"transactions"`
+	Accounts     []*account.Account         `json:"accounts"`
+	Orders       []*order.Order             `json:"orders"`
+	Positions    []*position.Position       `json:"positions"`
+	Transactions []*transaction.Transaction `json:"transactions"`
 }
-
-type Transaction struct {
-	Id         uint16    `json:"id"`
-	Timestamp  time.Time `json:"timestamp"`
-	BrokerId   uint16    `json:"brokerId" db:"broker_id"`     // fk
-	AccountId  uint16    `json:"accountId" db:"account_id"`   // FK
-	CurrencyId uint16    `json:"currencyId" db:"currency_id"` // fk
-	Direction  uint8     `json:"direction"`                   // 1 deposit, 2 - withdrawal, 0 - transfer will create corresponding transaction
-	Amount     float32   `json:"amount"`
-	Memo       string    `json:"memo"`
-	Status     uint8     `json:"status"` // 1 - executed, 2 - pending, 3 - rejected, 0 - canceled
-	Fee        float32   `json:"fee"`
-}
-
-// type AccountSpecs struct {
-// 	Id                uint16  `json:"id"`
-// 	AccountContractId uint16  `json:"accountContractId" db:"account_contract_id"` // FK
-// 	PairId            uint16  `json:"pairId" db:"pair_id"`
-// 	Symbol            string  `json:"symbol"`
-// 	PipSize           float32 `json:"pipSize" db:"pip_size"`
-// 	SpreadPips        float32 `json:"spreadPips" db:"spread_pips"`
-// 	SpreadPerLot      float32 `json:"spreadPerLot" db:"spread_per_lot"`
-// 	SwapShortPips     float32 `json:"swapShortPips" db:"swap_short_pips"`
-// 	SwapLongPips      float32 `json:"swapLongPips" db:"swap_long_pips"`
-// 	Lot               uint32  `json:"lot"`
-// }
-
-// type AccountContract struct {
-// 	Id       uint32 `json:"id"`
-// 	Name     string `json:"name"`
-// 	BrokerId uint32 `json:"broker_id"`
-// 	Memo     string `json:"memo"`
-// }
-
-// type AccountCurrency struct {
-// 	Id         uint32 `json:"id"`
-// 	Symbol     string `json:"symbol"`
-// 	ContractId uint32 `json:"contractId" db:"contract_id"`
-// }
 
 // methods
 // list all brokers

@@ -1,7 +1,7 @@
 package account
 
 // TO DO Account active can only be set to false if account balance = 0 and it has open positions.
-func (a *Account) Edit(id uint16) (*Account, error) {
+func (a *Account) Edit() (*Account, error) {
 
 	// get account based on id
 

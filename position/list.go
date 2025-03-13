@@ -7,8 +7,7 @@ import (
 func ListAll(id uint16) ([]*Position, error) {
 
 	q := `SELECT id, pair, volume, timestamp, type, price, sl, ts, tp, profit, memo, 
-	order_id, change, account_id, pair_id, broker_id, account_id, commission, spread_pips,
-	swap_long, swap_short, margin, direction 
+	change, account_id, pair_id, broker_id, account_id, commission, margin, direction, swap
 	FROM positions
 	WHERE broker_id = $1 ORDER BY id`
 
@@ -36,18 +35,15 @@ func ListAll(id uint16) ([]*Position, error) {
 			&p.TP,
 			&p.Profit,
 			&p.Memo,
-			&p.OrderId,
 			&p.Change,
 			&p.AccountId,
 			&p.PairId,
 			&p.BrokerId,
 			&p.AccountId,
 			&p.Commission,
-			&p.SpreadPips,
-			&p.SwapLongPips,
-			&p.SwapShortPips,
 			&p.Margin,
 			&p.Direction,
+			&p.Swap,
 		)
 		if err != nil {
 			return nil, err

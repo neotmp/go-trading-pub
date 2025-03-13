@@ -12,7 +12,7 @@ func brokerOpen(b *broker.Broker) *broker.Broker {
 
 }
 
-func TestBroOpen(t *testing.T) {
+func TestCreate(t *testing.T) {
 
 	b := broker.Broker{
 		Name:    "New Broker",

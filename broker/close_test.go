@@ -7,7 +7,7 @@ import (
 	"github.com/neotmp/go-trading/broker"
 )
 
-func TestBroClose(t *testing.T) {
+func TestClose(t *testing.T) {
 
 	noneZeroAcc := account.Account{
 		Balance: 100.00,

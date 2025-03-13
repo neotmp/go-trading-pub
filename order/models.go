@@ -22,4 +22,5 @@ type Order struct {
 	Commission   float32   `json:"commission"`
 	SpreadPips   float32   `json:"spreadPips" db:"spread_pips"`
 	Direction    uint8     `json:"direction"` //1 - buy, 0 - sell
+	PositionId   uint16    `json:"positionId" db:"position_id"`
 }

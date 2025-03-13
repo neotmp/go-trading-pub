@@ -1,6 +1,6 @@
 package order
 
-// List returns a slise of pointers to all orders of broker
+// List returns a slice of pointers to all orders of broker
 // Params id uint16 - broker id
 func List(id uint16) ([]*Order, error) {
 
