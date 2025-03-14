@@ -34,68 +34,16 @@ func (p *Position) Close() (*Position, error) {
 		return nil, err
 	}
 
-	// When closing position don't calculate profit and credit balance at the same time
-	a, err = p.AccountProfit(a)
-	if err != nil {
-		return nil, err
-	}
-
-	fmt.Println(a.Profit, a.Balance, "A profit, balance")
-
-	// TO DO How do we calculate change?
-	// account change
-	a, err = p.AccountChange(a)
-	if err != nil {
-		return nil, err
-	}
-
-	fmt.Println(a.Change, "A change")
-
 	// calculate account balance
-	a, err = p.AccountBalance(a)
+	a, err = AccountBalance(a, p.Profit)
 	if err != nil {
 		return nil, err
 	}
 
 	fmt.Println(a.Balance, "A balance")
 
-	// calculate account margin
-	a, err = p.AccountMargin(a)
-	if err != nil {
-		return nil, err
-	}
-
-	fmt.Println(a.Margin, "A margin")
-
-	// calculate account equity
-	a, err = AccountEquity(a)
-	if err != nil {
-		return nil, err
-	}
-
-	fmt.Println(a.Equity, "A equity")
-
-	// calculate account free margin
-	a, err = AccountFreeMargin(a)
-	if err != nil {
-		return nil, err
-	}
-
-	fmt.Println(a.FreeMargin, "A free margin")
-
-	// calculate account margin level
-	a, err = AccountMarginLevel(a)
-	if err != nil {
-		return nil, err
-	}
-
-	fmt.Println(a.MarginLevel, "A margin level")
-
-	// account update
-	err = AccountUpdate(a)
-	if err != nil {
-		return nil, err
-	}
+	// TO DO ACCOUNT UPDATE, err handling, what should we do here?
+	AccountUpdate(a)
 
 	p, err = p.dbClose()
 	if err != nil {
@@ -125,8 +73,6 @@ func (p *Position) Close() (*Position, error) {
 	if err != nil {
 		return p, err
 	}
-
-	// TO DO ACCOUNT UPDATE
 
 	return p, nil
 }

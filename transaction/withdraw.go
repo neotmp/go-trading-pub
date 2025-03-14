@@ -25,7 +25,7 @@ func (t *Transaction) Withdraw() (*Transaction, *account.Account, error) {
 
 	// balance check
 	if a.Balance < t.Amount {
-		return nil, nil, errors.New("amount to withdraw can not exceed the balance of the debit account")
+		return nil, nil, errors.New("amount to transfer can not exceed the balance of the debit account")
 	}
 
 	a.Balance -= t.Amount

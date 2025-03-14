@@ -2,12 +2,13 @@ package position
 
 import "github.com/neotmp/go-trading/database"
 
+// Only Open Positions by Account
 func dbListPositionsByAccount(id uint16) ([]*Position, error) {
 
 	q := `SELECT id, pair, volume, timestamp, type, price, sl, ts, tp, profit, memo, 
 	change, account_id, pair_id, broker_id, account_id, commission, margin, direction 
 	FROM positions
-	WHERE account_id = $1 ORDER BY id`
+	WHERE account_id = $1 AND open = true ORDER BY id`
 
 	rows, err := database.DB.Query(q, id)
 	if err != nil {

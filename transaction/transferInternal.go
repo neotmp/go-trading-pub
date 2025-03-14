@@ -19,10 +19,16 @@ func (t *Transaction) transferInternal() ([]*account.Account, []*Transaction, er
 		return nil, nil, errors.New("amount to withdraw can not exceed the balance of the debit account")
 	}
 
+	// equity check for trade account
+	if d.Type == 1 && (d.Equity-d.Margin) < t.Amount {
+		return nil, nil, errors.New("amount to transfer can not exceed the equity")
+	}
+
 	var tr = []*Transaction{}
 
 	d.Balance -= t.Amount
 	t.Direction = 1
+	t.AccountId = t.DebitId
 
 	// copy value of transaction
 	trOut := *t
@@ -35,6 +41,7 @@ func (t *Transaction) transferInternal() ([]*account.Account, []*Transaction, er
 
 	c.Balance += t.Amount
 	t.Direction = 2
+	t.AccountId = t.CreditId
 
 	// copy value of transaction
 	trIn := *t

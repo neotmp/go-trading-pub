@@ -27,19 +27,43 @@ func PointValue(p, accCur string) (float32, error) {
 		//fmt.Println(f, "Acc currency")
 	} else if pairs.Find(legalPairs, accountCurrency+quoteCurrency) {
 		if isJPY(p) {
-			f = (1 / (pairs.GetLatestPrice(accountCurrency + quoteCurrency).Close) / 0.1)
+
+			value, err := pairs.GetLatestPrice(accountCurrency + quoteCurrency)
+			if err != nil {
+				return f, err
+			}
+
+			f = (1 / (value.Close) / 0.1)
 			//fmt.Println(f, "Normal J")
 		} else {
-			f = (1 / pairs.GetLatestPrice(accountCurrency+quoteCurrency).Close)
+
+			value, err := pairs.GetLatestPrice(accountCurrency + quoteCurrency)
+			if err != nil {
+				return f, err
+			}
+
+			f = (1 / value.Close)
 			//fmt.Println(f, "Normal")
 		}
 
 	} else {
 		if isJPY(p) {
-			f = (1 * (pairs.GetLatestPrice(accountCurrency + quoteCurrency).Close) / 0.1)
+
+			value, err := pairs.GetLatestPrice(accountCurrency + quoteCurrency)
+			if err != nil {
+				return f, err
+			}
+
+			f = (1 * (value.Close) / 0.1)
 			//fmt.Println(f, "Reversed J")
 		} else {
-			f = pairs.GetLatestPrice(quoteCurrency + accountCurrency).Close
+
+			value, err := pairs.GetLatestPrice(quoteCurrency + accountCurrency)
+			if err != nil {
+				return f, err
+			}
+
+			f = value.Close
 			//fmt.Println(f, "Reversed")
 
 		}

@@ -1,26 +1,24 @@
 package position
 
-import (
-	"fmt"
+import "github.com/neotmp/go-trading/pairs"
 
-	"github.com/neotmp/go-trading/pairs"
-)
-
-func Update() error {
+func updateAllPositions(accId uint16) error {
 
 	// get all open positions by account
-
-	p, err := ListPositionsByAccount(22)
+	p, err := ListPositionsByAccount(accId)
 	if err != nil {
 		return err
 	}
 
 	for _, v := range p {
 
+		//fmt.Println(v, "position")
+
 		// get latest prices
-		pr := pairs.GetLatestPrice(v.Pair)
-		// check for nil in case of error
-		if pr == nil {
+		//fmt.Println(v.Pair, "v.pair")
+		pr, err := pairs.GetLatestPrice(v.Pair)
+		//check for nil in case of error
+		if pr == nil || err != nil {
 			return err
 		}
 
@@ -28,7 +26,7 @@ func Update() error {
 		v.CurrentPrice = pr.Close
 
 		v, err := v.CalculateSwap()
-		fmt.Println(v.Swap, "swap returned")
+		//fmt.Println(v.Swap, "swap returned")
 		if err != nil {
 			return err
 		}

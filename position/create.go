@@ -3,6 +3,7 @@ package position
 import (
 	"fmt"
 
+	"github.com/neotmp/go-trading/account"
 	"github.com/neotmp/go-trading/order"
 )
 
@@ -11,6 +12,23 @@ func (p *Position) Create() (*Position, error) {
 
 	// we create position
 	p, err := p.dbCreate()
+	if err != nil {
+		return p, err
+	}
+
+	err = updateAllPositions(p.AccountId)
+	if err != nil {
+		return p, err
+	}
+
+	// get accout to update
+	a, err := account.Get(p.AccountId)
+	if err != nil {
+		return nil, err
+	}
+
+	// update account
+	a, err = AccountUpdate(a)
 	if err != nil {
 		return p, err
 	}
@@ -27,6 +45,7 @@ func (p *Position) Create() (*Position, error) {
 		AccountId:  p.AccountId,
 		Type:       p.Type,
 		Commission: p.Commission,
+		Margin:     p.Margin,
 		PositionId: p.Id,
 	}
 

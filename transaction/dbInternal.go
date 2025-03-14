@@ -37,7 +37,7 @@ func dbInternal(d, c *account.Account) ([]*account.Account, error) {
 
 	// Second part of transaction
 	// Update second account's balance
-	if err := tx.QueryRowContext(ctx, q2, c.Balance, c.Id).Scan(&d.Id, &d.Balance); err != nil {
+	if err := tx.QueryRowContext(ctx, q2, c.Balance, c.Id).Scan(&c.Id, &c.Balance); err != nil {
 		tx.Rollback()
 		fmt.Println("roll-back 2")
 		return nil, errors.New(err.Error())

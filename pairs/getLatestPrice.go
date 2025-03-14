@@ -8,14 +8,15 @@ import (
 	"github.com/neotmp/go-trading/database"
 )
 
-func GetLatestPrice(pair string) *CurrencyQuote {
+// TO DO get rid of underscore?? simplify?
+func GetLatestPrice(pair string) (*CurrencyQuote, error) {
 
 	pair = strings.ToLower(pair)
 	bc := pair[:3]
 	qc := pair[3:]
 	str := bc + "_" + qc
 
-	//fmt.Println(pair, str, "PAIR")
+	//fmt.Println(pair, "PAIR FUNC  00")
 
 	qr := fmt.Sprintf(`SELECT id,
 		date,
@@ -40,14 +41,14 @@ func GetLatestPrice(pair string) *CurrencyQuote {
 
 			fmt.Println("No Currency with this code")
 
-			return nil
+			return nil, err
 
 		}
 		fmt.Println(err)
-		return nil
+		return nil, err
 
 	}
 
-	return cq
+	return cq, nil //nil, errors.New("my test error here")
 
 }

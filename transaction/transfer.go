@@ -2,6 +2,9 @@ package transaction
 
 import (
 	"errors"
+	"fmt"
+
+	"github.com/neotmp/go-trading/position"
 )
 
 // Transfer transfers funds externally (deposit, withdrawal) or internally between two accounts.
@@ -18,6 +21,21 @@ func (t *Transaction) Transfer() (*Data, error) {
 
 		d.Accounts = append(d.Accounts, a...)
 		d.Transactions = append(d.Transactions, tr...)
+
+		for _, v := range a {
+
+			fmt.Println(v.Balance, v.Type, "balance")
+
+			if v.Type == 1 {
+
+				_, err := position.AccountUpdate(v)
+				if err != nil {
+					return nil, err
+				}
+
+			}
+
+		}
 
 		return d, nil
 

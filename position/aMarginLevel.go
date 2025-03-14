@@ -11,9 +11,8 @@ import (
 func AccountMarginLevel(a *account.Account) (*account.Account, error) {
 
 	// sanity check
-
 	if a.Equity == 0 {
-		return nil, errors.New("something is wrong with equity")
+		return nil, errors.New("something is wrong with margin level")
 	}
 
 	// no open positions check
