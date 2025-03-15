@@ -10,6 +10,10 @@ import (
 // Create creates order first and position then if no error
 func (p *Position) Create() (*Position, error) {
 
+	// TO DO sanity check
+	// we can open position only if we have free margin
+	// before checking free margin we update all positions and account
+
 	// we create position
 	p, err := p.dbCreate()
 	if err != nil {

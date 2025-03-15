@@ -2,7 +2,6 @@ package transaction
 
 import (
 	"errors"
-	"fmt"
 
 	"github.com/neotmp/go-trading/position"
 )
@@ -24,9 +23,9 @@ func (t *Transaction) Transfer() (*Data, error) {
 
 		for _, v := range a {
 
-			fmt.Println(v.Balance, v.Type, "balance")
+			//fmt.Println(v.Balance, v.Type, "balance")
 
-			if v.Type == 1 {
+			if v.Type == 2 {
 
 				_, err := position.AccountUpdate(v)
 				if err != nil {

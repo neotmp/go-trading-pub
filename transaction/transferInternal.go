@@ -20,7 +20,7 @@ func (t *Transaction) transferInternal() ([]*account.Account, []*Transaction, er
 	}
 
 	// equity check for trade account
-	if d.Type == 1 && (d.Equity-d.Margin) < t.Amount {
+	if d.Type == 2 && (d.Equity-d.Margin) < t.Amount {
 		return nil, nil, errors.New("amount to transfer can not exceed the equity")
 	}
 
